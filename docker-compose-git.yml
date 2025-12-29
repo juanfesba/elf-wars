@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: app/backend/DockerfileGit
     ports:
-      - "8082:8080" # Mapping to 8082 so it doesn't clash with local
+      - "8080:8080"
     environment:
       # To avoid some Gin debugging lines.
       - GIN_MODE=release
@@ -13,6 +13,6 @@ services:
       context: .
       dockerfile: app/frontend/DockerfileGit
     ports:
-      - "8083:80"
+      - "8081:80"
     depends_on:
       - backend # The frontend might depend on the backend
