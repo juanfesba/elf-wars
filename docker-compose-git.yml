@@ -2,7 +2,7 @@ services:
   backend:
     build:
       context: .
-      dockerfile: app/backend/GitDockerfile
+      dockerfile: app/backend/DockerfileGit
     ports:
       - "8081:8080" # Mapping to 8081 so it doesn't clash with local
     environment:
