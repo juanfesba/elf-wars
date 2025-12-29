@@ -5,17 +5,20 @@ FROM node:latest AS builder
 # All subsequent commands will run from this directory.
 WORKDIR /src
 
-# Clone your specific branch from your GitHub repository
-# The code will be cloned into /app/frontend
-RUN git clone https://github.com/juanfesba/elf-wars.git .
+# 1. Copy package files first to leverage Docker caching
+# This makes subsequent builds much faster if you haven't added new packages
+COPY app/frontend/package*.json ./
 
 # Change the working directory to your frontend subdirectory within the cloned repo
 # We navigate into the cloned repo folder, then into the frontend folder
 WORKDIR /src/app/frontend
 
-# This command runs npm to install all the project dependencies
-# It will use the package.json in the current working directory (/app/elf-wars/frontend)
+# 2. Install dependencies
 RUN npm install
+
+# 3. Copy the rest of the frontend source code from your machine
+# Context is project root, so we copy from app/frontend to current WORKDIR (.)
+COPY app/frontend/ .
 
 # This executes the build script defined in your package.json
 # It will build the app in the current directory, creating ./build

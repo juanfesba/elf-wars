@@ -7,3 +7,12 @@ services:
       - "8080:8080"
     environment:
       - GIN_MODE=debug
+
+  frontend:
+    build:
+      context: .
+      dockerfile: app/frontend/Dockerfile
+    ports:
+      - "8081:80"
+    depends_on:
+      - backend # The frontend might depend on the backend
