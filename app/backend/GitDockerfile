@@ -6,8 +6,11 @@ WORKDIR /src
 # Install Go (example using apk, as alpine uses it - for simple cases)
 # RUN apk add --no-cache go
 
-# Copy everything from the context
-COPY . .
+# If you need git for cloning
+RUN apk add --no-cache git
+
+# Clone the repository (replace with your repo URL)
+RUN git clone https://github.com/juanfesba/elf-wars.git .
 
 # Verifying when debugging
 # RUN ls -l /src/app

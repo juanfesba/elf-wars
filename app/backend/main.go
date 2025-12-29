@@ -19,7 +19,7 @@ func main() {
 	r.GET("/ping", func(c *gin.Context) {
 		user := User{
 			ID:    101,
-			Name:  "Docker User",
+			Name:  "Docker User v2",
 			Email: "user@example.com",
 		}
 		// Returns 200 OK with JSON body

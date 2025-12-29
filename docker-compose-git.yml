@@ -1,0 +1,10 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: app/backend/GitDockerfile
+    ports:
+      - "8081:8080" # Mapping to 8081 so it doesn't clash with local
+    environment:
+      # To avoid some Gin debugging lines.
+      - GIN_MODE=release
