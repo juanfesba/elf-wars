@@ -1,0 +1,5 @@
+services:
+  backend:
+    build: ./backend   # Build from the Dockerfile in the current directory.
+    ports:
+      - "8080:8080"
