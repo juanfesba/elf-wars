@@ -1,5 +1,5 @@
 # Stage 1: Builder stage (for fetching, installing Go, and compiling)
-FROM golang:1.24-alpine AS builder
+FROM golang:1.25.5-alpine AS builder
 
 WORKDIR /builder
 
@@ -15,8 +15,10 @@ RUN git clone https://github.com/juanfesba/elf-wars.git .
 # Verifying when debugging
 # RUN ls -l /builder/app
 
+WORKDIR /builder/app/backend
+
 # Compile the Go code (replace main.go with your main file if different)
-RUN go build -o elf-wars app/backend/main.go
+RUN go build -o /builder/elf-wars main.go
 
 # Stage 2: Final image (smaller and only contains the binary)
 FROM alpine:latest
