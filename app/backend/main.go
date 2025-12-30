@@ -32,7 +32,9 @@ func addBall(ball *Ball) {
 			return
 		}
 	}
-	balls = append(balls, ball)
+	if ball.Amount != 0 {
+		balls = append(balls, ball)
+	}
 }
 
 func postMethod(c *gin.Context) {
@@ -73,7 +75,7 @@ func main() {
 	}))
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
-			"message": "pong v0.0.8",
+			"message": "pong v0.0.9",
 		})
 	})
 	r.GET("/inventory", func(c *gin.Context) {
