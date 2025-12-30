@@ -15,7 +15,7 @@ services:
       dockerfile: app/frontend/Dockerfile
     environment:
       - PORT=80
-      - BACKEND_URL=http://localhost:8080
+      - BACKEND_URL=http://backend:8080
     ports:
       - "8081:80"
     depends_on:

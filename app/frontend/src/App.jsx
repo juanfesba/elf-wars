@@ -17,10 +17,16 @@ function App() {
   const [color, setColor] = useState('');
   const [amount, setAmount] = useState('');
 
+  // Axios
+  const api = axios.create({
+    // This tells axios to always prefix requests with /api
+    baseURL: '/api' 
+  });
+
   // GET Request
   const fetchBackendGetData = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/inventory');
+      const response = await api.get('/inventory');
       const data = Array.isArray(response.data) ? response.data : [response.data];
       setBackendGetData(data);
       setError(null);
@@ -43,7 +49,7 @@ function App() {
         color: color,
         amount: parseInt(amount, 10),
       };
-      const response = await axios.post('http://localhost:8080/throw', payload);
+      const response = await api.post('/throw', payload);
       setBackendPostData(response.data);
       setError(null);
       setName(''); setColor(''); setAmount('');
