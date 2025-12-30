@@ -2,35 +2,32 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import axios from 'axios'; // Import axios
+import axios from 'axios';
 
 function App() {
   const [count, setCount] = useState(0);
   const [backendGetData, setBackendGetData] = useState(null);
   const [backendPostData, setBackendPostData] = useState(null);
   const [error, setError] = useState(null);
-  const [name, setName] = useState('');       // State for name
-  const [color, setColor] = useState('');     // State for color
-  const [amount, setAmount] = useState('');    // State for amount
+  const [name, setName] = useState('');
+  const [color, setColor] = useState('');
+  const [amount, setAmount] = useState('');
 
   // Function to fetch data from the backend (GET request)
   const fetchBackendGetData = async () => {
     try {
       const response = await axios.get('http://localhost:8080/inventory');
-      console.log('Data from backend (GET):', response.data);
       setBackendGetData(response.data);
       setError(null);
     } catch (err) {
       console.error('Error fetching data (GET):', err);
       setError(err);
-      setBackendGetData(null);
     }
   };
 
   // Function to send data to the backend (POST request)
   const sendDataToBackendPostData = async () => {
     try {
-      // *** Construct the JSON payload ***
       const payload = {
         name: name,
         color: color,

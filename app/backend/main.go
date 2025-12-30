@@ -27,7 +27,7 @@ var balls = []*Ball{
 
 func addBall(ball *Ball) {
 	for _, eb := range balls {
-		if ball.Name == eb.Name {
+		if ball.Name == eb.Name && ball.Color == eb.Color {
 			eb.Amount += ball.Amount
 			return
 		}

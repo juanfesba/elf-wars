@@ -42,7 +42,7 @@ FROM nginx:stable-alpine
 # Remove default nginx static assets
 RUN rm -rf /usr/share/nginx/html/*
 
-COPY app/frontend/nginx.conf.template /etc/nginx/templates/default.conf.template
+COPY --from=builder /src/app/frontend/nginx.conf.template /etc/nginx/templates/default.conf.template
 
 # Copy the built files from the builder stage
 # The build output will be located at /app/frontend/build
