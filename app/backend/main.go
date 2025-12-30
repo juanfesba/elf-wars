@@ -7,6 +7,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/gin-contrib/cors"
@@ -49,7 +50,14 @@ func postMethod(c *gin.Context) {
 
 func main() {
 	fmt.Println("Hello, World!")
-	fmt.Println("Starting server on port 8080")
+
+	// 1. Pull the port from the environment
+	port := os.Getenv("PORT")
+
+	// 2. Local fallback for when you run 'go run main.go' without Docker
+	if port == "" {
+		port = "8080"
+	}
 
 	r := gin.Default()
 	// Safer CORS configuration
@@ -65,14 +73,14 @@ func main() {
 	}))
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
-			"message": "pong v0.0.1",
+			"message": "pong v0.0.6",
 		})
 	})
 	r.GET("/inventory", func(c *gin.Context) {
 		c.IndentedJSON(http.StatusOK, balls)
 	})
 	r.POST("/throw", postMethod)
-	err := r.Run(":8080") // (for windows "http://localhost:8080/ping")
+	err := r.Run(":" + port) // (for windows "http://localhost:8080/ping")
 	if err != nil {
 		fmt.Printf("Error starting server: %+v\n", err)
 	}

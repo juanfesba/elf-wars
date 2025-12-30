@@ -8,6 +8,7 @@ services:
     environment:
       # To avoid some Gin debugging lines.
       - GIN_MODE=release
+      - PORT=8080  # This mimics what Cloud Run does
   frontend:
     build:
       context: .
