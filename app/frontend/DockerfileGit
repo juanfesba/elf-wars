@@ -1,9 +1,12 @@
 # Stage 1: Build the React application
-FROM node:latest AS builder
+FROM node:alpine AS builder
 
 # This sets the working directory inside the container to /app.
 # All subsequent commands will run from this directory.
 WORKDIR /src
+
+# If you need git for cloning
+RUN apk add --no-cache git
 
 # Clone your specific branch from your GitHub repository
 # The code will be cloned into /app/frontend
