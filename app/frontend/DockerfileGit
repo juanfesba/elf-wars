@@ -8,6 +8,9 @@ WORKDIR /src
 # If you need git for cloning
 RUN apk add --no-cache git
 
+# 1. Fetch the latest commit info for your branch (replace 'main' if using a different branch)
+ADD https://api.github.com/repos/juanfesba/elf-wars/commits/main /dev/null
+
 # Clone your specific branch from your GitHub repository
 # The code will be cloned into /app/frontend
 RUN git clone https://github.com/juanfesba/elf-wars.git .
