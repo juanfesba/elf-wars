@@ -13,6 +13,9 @@ services:
     build:
       context: .
       dockerfile: app/frontend/DockerfileGit
+    environment:
+      - PORT=80
+      - BACKEND_URL=http://localhost:8080
     ports:
       - "8081:80"
     depends_on:
