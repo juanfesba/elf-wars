@@ -75,7 +75,7 @@ func main() {
 	}))
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
-			"message": "pong v0.0.9",
+			"message": "pong v0.0.10",
 		})
 	})
 	r.GET("/inventory", func(c *gin.Context) {
