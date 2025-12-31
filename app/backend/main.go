@@ -62,11 +62,16 @@ func main() {
 	}
 
 	r := gin.Default()
+	r.SetTrustedProxies(nil)
+
+	allowedOrigin := os.Getenv("ALLOWED_ORIGIN")
+	if allowedOrigin == "" {
+		allowedOrigin = "http://localhost:8081" // Local dev fallback
+	}
+
 	// Safer CORS configuration
 	r.Use(cors.New(cors.Config{
-		// Replace this with your actual Cloud Run / Frontend URL
-		// AllowOrigins:     []string{"https://my-react-app.web.app", "http://localhost:3000"},
-		AllowOrigins:     []string{"http://localhost:8081"},
+		AllowOrigins:     []string{allowedOrigin},
 		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Accept", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
@@ -75,7 +80,7 @@ func main() {
 	}))
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
-			"message": "pong v0.0.10",
+			"message": "pong v0.0.11",
 		})
 	})
 	r.GET("/inventory", func(c *gin.Context) {

@@ -74,7 +74,7 @@ function App() {
 
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          count  v0.0.10 is {count}
+          count  v0.0.11 is {count}
         </button>
       </div>
 

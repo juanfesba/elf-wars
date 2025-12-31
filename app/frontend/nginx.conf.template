@@ -9,7 +9,13 @@ server {
 
     # Proxy /api requests to the Backend
     location /api/ {
+        # 1. Use the variable with a trailing slash to strip "/api"
         proxy_pass ${BACKEND_URL}/;
-        proxy_set_header Host $host;
+
+        # 2. CRITICAL: Change $host to $proxy_host for Cloud Run routing
+        proxy_set_header Host $proxy_host;
+        proxy_set_header Origin $http_origin; # CRITICAL: Passes the browser URL to Go
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_ssl_server_name on;
     }
 }
