@@ -1,4 +1,16 @@
 services:
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: myapp
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   backend:
     build:
       context: .
@@ -9,6 +21,15 @@ services:
       # To avoid some Gin debugging lines.
       - GIN_MODE=release
       - PORT=8080  # This mimics what Cloud Run does
+      # DB ENV VARS
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=password123
+      - DB_NAME=myapp
+    depends_on:
+      - db
+
   frontend:
     build:
       context: .
@@ -20,3 +41,6 @@ services:
       - "8081:80"
     depends_on:
       - backend # The frontend might depend on the backend
+
+volumes:
+  postgres_data:
