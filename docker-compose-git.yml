@@ -9,7 +9,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data_git:/var/lib/postgresql_git/data
+      - postgres_data_git:/var/lib/postgresql/data
 
   backend:
     build:
